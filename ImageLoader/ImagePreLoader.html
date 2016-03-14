@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image pre loader</title>
+<style>
+body {
+    margin: 0;
+}
+
+img {
+    width: 500px;
+    height: 500px;
+}
+</style>
+</head>
+<body>
+<img src="#" alt="测试">
+<button>Next</button>
+<script>
+var btnElement = document.getElementsByTagName('button')[0];
+var imgElement = document.images[0];
+
+var imageList = ["images/img1.gif","images/img2.gif","images/img3.gif","images/img4.gif"];
+var loadedImages = [];
+
+var idx = 0;
+
+btnElement.onclick = function(){
+    imgElement.src = loadedImages[idx].src;
+    
+    idx++;
+    idx = idx%4;
+    
+    // pre load the next image
+    preLoadImage(imageList[idx]);
+}
+
+function preLoadImage(url){
+    var oImg = new Image();
+    oImg.src = url;
+    oImg.onload = function() {
+        loadedImages.push(oImg);
+    }
+}
+
+window.onload = function(){
+    // pre load the first image
+    preLoadImage(imageList[0]);    
+}
+</script>
+</body>
+</html>
