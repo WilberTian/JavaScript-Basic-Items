@@ -18,6 +18,7 @@ var EventUtil = {
         }
     },
     preventDefault: function(event) {
+        event = event || window.event;
         if (event.preventDefault) {
             event.preventDefault();
         } else {
@@ -25,6 +26,7 @@ var EventUtil = {
         }
     },
     stopPropagation: function(event) {
+        event = event || window.event;
         if (event.stopPropagation) {
             event.stopPropagation();
         } else {
@@ -35,9 +37,11 @@ var EventUtil = {
         return event ? event : window.event;
     },
     getTarget: function(event) {
+        event = event || window.event;
         return event.target || event.srcElement;
     },
     getRelatedTarget: function(event) {
+        event = event || window.event;
         if (event.relatedTarget) {
             return event.relatedTarget;
         } else if (event.toElement) {
@@ -49,6 +53,7 @@ var EventUtil = {
         }
     },
     getButton: function(event) {
+        event = event || window.event;
         if (document.implementation.hasFeature("MouseEvents", "2.0")) {
             return event.button;
         } else {
@@ -68,6 +73,7 @@ var EventUtil = {
         }
     },
     getCharCode: function(event) {
+        event = event || window.event;
         if (typeof event.charCode == "number") {
             return event.charCode;
         } else {
@@ -75,6 +81,7 @@ var EventUtil = {
         }
     },
     getWheelDelta: function(event) {
+        event = event || window.event;
         if (event.wheelDelta) {
             return (client.engine.opera && client.engine.opera < 9.5 ? -event.wheelDelta : event.wheelDelta);
         } else {
@@ -82,10 +89,12 @@ var EventUtil = {
         }
     },
     getClipboardText: function(event) {
+        event = event || window.event;
         var clipboardData = (event.clipboardData || window.clipboardData);
         return clipboardData.getData("text");
     },
     setClipboardText: function(event, value) {
+        event = event || window.event;
         if (event.clipboardData) {
             return event.clipboardData.setData("text/plain", value);
         } else if (window.clipboardData) {
