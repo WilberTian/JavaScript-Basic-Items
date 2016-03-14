@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image lazy loader</title>
+<style>
+body {
+    width: 600px;
+}
+ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+img {
+    height: 400px;
+    width: 400px;
+}
+</style>
+</head>
+<body>
+<ul>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img1.gif"></li>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img2.gif"></li>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img3.gif"></li>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img4.gif"></li>    
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img1.gif"></li>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img2.gif"></li>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img3.gif"></li>
+    <li><img src="images/loading.gif" alt="Test" data-original = "images/img4.gif"></li>                           
+</ul>
+
+<script>
+var images = document.images;
+
+function loadImg(arr){
+    for(var i = 0,len = arr.length; i < len; i++) {
+        if(arr[i].getBoundingClientRect().top < document.documentElement.clientHeight && !arr[i].isLoad){
+            arr[i].isLoad = true;
+            lazyLoadImage(arr[i], arr[i].getAttribute("data-original"));
+        }
+    }
+}
+
+function lazyLoadImage(obj, url){
+    var oImg = new Image();
+    oImg.src = url;
+    oImg.onload = function() {
+        obj.src = oImg.src;
+    }
+}
+
+// load images already on current screen
+loadImg(images);
+
+// load images when scroll
+window.onscroll = function(){
+    loadImg(images);
+};
+
+</script>    
+</body>
+</html>
